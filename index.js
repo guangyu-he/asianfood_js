@@ -37,6 +37,7 @@ function initMap() {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
+          document.getElementById("search_bar").style = "display:none";
           infowindow.setContent(locations[i][0]);
           infowindow.open(map, marker);
           map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
@@ -50,12 +51,15 @@ function initMap() {
     ul.onclick = function(e){
         if (e.target != ul) {
             var index_name = e.target.innerText;
+            document.getElementById("search_bar").style = "display:none";
             for(var i=0;i<locations.length;i++){
                 if(locations[i][0] == index_name){
                     const marker = new google.maps.Marker({
                         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                         map: map
                       });
+                    markers.push(marker);
+
                     infowindow.setContent(locations[i][0]);
                     infowindow.open(map, marker);
                     map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
@@ -65,10 +69,10 @@ function initMap() {
             }
         }
     }
+
     var locations_sel = locations;
     document.getElementById("myList").addEventListener("change", function() {
 
-      console.log(this.value);
       for (var i = 0; i < locations_sel.length; i++) {
         var list =document.getElementById('list_'+i);
         list.parentNode.removeChild(list);
@@ -101,6 +105,7 @@ function initMap() {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
+          document.getElementById("search_bar").style = "display:none";
           infowindow.setContent(locations_sel[i][0]);
           infowindow.open(map, marker);
           map.panTo({ "lat":locations_sel[i][1], "lng":locations_sel[i][2]});
@@ -130,6 +135,8 @@ function showMarkers() {
 }
 
 function show_detail(location,index){
+  hideMarkers();
+  markers[index].setMap(map);
   document.getElementById("list").style = "display:none";
   document.getElementById("select_type").style = "display:none";
 
@@ -153,8 +160,11 @@ function show_detail(location,index){
 }
 
 function main_list(){
+  showMarkers();
   document.getElementById("list").style = "display:block";
   document.getElementById("select_type").style = "display:block";
+  document.getElementById("search_bar").style = "display:block";
+
 
   document.getElementById("detail").style = "display:none";
   var text_ele = document.getElementById("name");
@@ -206,7 +216,7 @@ menuButton.addEventListener("click", function () {
 
 function search_function() {
   var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById("myInput");
+  input = document.getElementById("search_bar");
   filter = input.value.toUpperCase();
   ul = document.getElementById("list");
   li = ul.getElementsByTagName("li");
