@@ -39,7 +39,6 @@ function initMap() {
           infowindow.open(map, marker);
           map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
           map.setZoom(16);
-          console.log(i);
           show_detail(locations,i);
         }
       })(marker, i));
@@ -128,14 +127,38 @@ function showMarkers() {
 
 function show_detail(location,index){
   document.getElementById("list").style = "display:none";
+  document.getElementById("select_type").style = "display:none";
+
   document.getElementById("detail").style = "display:block";
-  
+
+  var text_ele = document.createElement('text');
+  text_ele.innerHTML = location[index][0] + '<br>';
+  text_ele.id = "name";
+  document.getElementById("detail").appendChild(text_ele);
+
+  var link_ele = document.createElement('a');
+  //link_ele.href = "http://maps.google.com/maps?q=loc:" + location[index][1] + "," + location[index][2] + " (" + location[index][0] + ")";
+  link_ele.href = "http://maps.google.co.in/maps?q=" + location[index][0];
+  link_ele.innerHTML = "Open in Google";
+  link_ele.target="_blank";
+  link_ele.id = "name_link";
+  document.getElementById("detail").appendChild(link_ele);
+
+
   document.getElementById("back_btn").style = "display:inline";
 }
 
 function main_list(){
   document.getElementById("list").style = "display:block";
+  document.getElementById("select_type").style = "display:block";
+
   document.getElementById("detail").style = "display:none";
+  var text_ele = document.getElementById("name");
+  text_ele.parentNode.removeChild(text_ele);
+  var link_ele = document.getElementById("name_link");
+  link_ele.parentNode.removeChild(link_ele);
+
+
   document.getElementById("back_btn").style = "display:none";
   map.setZoom(13);
 }
