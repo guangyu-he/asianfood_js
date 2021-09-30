@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Asian Food in Berlin</title>
+
+<link rel="stylesheet" href="css/style.css">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script src="./index.js"></script>
+
+
+</head>
+<body>
+    <div class="menu-button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="menu-overlay">
+      <div class="nav">
+        <nav class="nav__items">
+          <p class="nav__category">核心内容</p>
+          <a class="nav__item" href="#">Nine Years</a>
+          <a class="nav__item" href="#">Worth Of Breakin'</a>
+          <a class="nav__item" href="#">My Back</a>
+        </nav>
+
+        <nav class="nav__items">
+          <p class="nav__category">观星者本人</p>
+          <a class="nav__item" href="#">There's No Sun</a>
+          <a class="nav__item" href="#">In The Shadow Of The Wizard</a>
+          <a class="nav__item" href="#">See How He Glides</a>
+        </nav>
+      </div>
+
+      <div class="menu-overlay__image">
+        <img src="img/sdgsd.jpg" alt="" />
+      </div>
+    </div>
+
+    <main>
+      <div id="map"></div>
+
+    <br>
+    <div id="content_bar">
+        <p>content</p>
+        <ul id="list">
+        </ul>
+    </div>
+
+    <div class="navbar">
+        <text>Asia Food in Berlin</text>
+        <!--<a href="#home" id="about">Home</a>-->
+    </div>
+
+</main>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key="+ api_key + "&callback=initMap&v=weekly"
+      async
+    ></script>
+
+  <script  src="js/script.js"></script>
+  <script  src="gmap_api.js"></script>
+
+</body>
+</html>
+
