@@ -10,20 +10,6 @@
     border-radius: 0em;
 }
 
-#search_bar
-{
-  position: relative;
-  left: 70%;
-  top: 5%;
-  width: 30%;
-  height: 10%;
-  border: 0px solid #F00;
-  z-index: 1;
-  border-radius: 2em;
-  background:rgba(255, 255, 255, 0.9);
-  text-align:center;
-}
-
 #content_bar
 {
   position: relative;
@@ -54,6 +40,14 @@
   border-radius: 2em;
   background:rgba(255, 255, 255, 0.9);
   text-align:center;
+}
+
+#version {
+  position: fixed;
+  bottom: 0.5%;
+  right: 4rem;
+  z-index: 1;
+  color: rgb(255, 255, 255);
 }
 
 body {margin:0;}

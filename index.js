@@ -8,7 +8,7 @@ function initMap() {
         li_ele.setAttribute('id','list_'+i);
         var a_ele = document.createElement('a');
         a_ele.innerHTML = locations[i][0];
-        a_ele.href = "#";
+        a_ele.href = "";
         li_ele.appendChild(a_ele);
         document.getElementById("list").appendChild(li_ele);
     };    
@@ -84,7 +84,11 @@ function initMap() {
         locations_sel = locations_cn;
       }else if(this.value == "Jap"){
         locations_sel = locations_jp;
-      }
+      }else if(this.value == "Korean"){
+        locations_sel = locations_kr;
+      }else if(this.value == "Viet"){
+        locations_sel = locations_vi;
+      }else{}
 
       deleteMarkers();
 
@@ -93,7 +97,7 @@ function initMap() {
         li_ele.setAttribute('id','list_'+i);
         var a_ele = document.createElement('a');
         a_ele.innerHTML = locations_sel[i][0];
-        a_ele.href = "#";
+        a_ele.href = "";
         li_ele.appendChild(a_ele);
         document.getElementById("list").appendChild(li_ele);
 
@@ -203,6 +207,12 @@ for(var i=0;i<locations.length;i++){
   }else if(locations[i][3] == 'jp'){
     locations_jp[i_jp] = locations[i];
     i_jp++;
+  }else if(locations[i][3] == 'kr'){
+    locations_kr[i_kr] = locations[i];
+    i_kr++;
+  }else if(locations[i][3] == 'vi'){
+    locations_kr[i_vi] = locations[i];
+    i_vi++;
   }else{}
 }
 
