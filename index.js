@@ -5,9 +5,11 @@ function initMap() {
 
     for(var i=0;i<locations.length;i++){
         var li_ele = document.createElement('li');
-        //li_ele.setAttribute('onclick','test('+i+')');
         li_ele.setAttribute('id','list_'+i);
-        li_ele.innerHTML = locations[i][0];
+        var a_ele = document.createElement('a');
+        a_ele.innerHTML = locations[i][0];
+        a_ele.href = "#";
+        li_ele.appendChild(a_ele);
         document.getElementById("list").appendChild(li_ele);
     };    
 
@@ -84,10 +86,12 @@ function initMap() {
 
     for (var i = 0; i < locations_sel.length; i++) {
       var li_ele = document.createElement('li');
-      //li_ele.setAttribute('onclick','test('+i+')');
-      li_ele.setAttribute('id','list_'+i);
-      li_ele.innerHTML = locations_sel[i][0];
-      document.getElementById("list").appendChild(li_ele);
+        li_ele.setAttribute('id','list_'+i);
+        var a_ele = document.createElement('a');
+        a_ele.innerHTML = locations_sel[i][0];
+        a_ele.href = "#";
+        li_ele.appendChild(a_ele);
+        document.getElementById("list").appendChild(li_ele);
 
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations_sel[i][1], locations_sel[i][2]),
@@ -199,3 +203,21 @@ menuButton.addEventListener("click", function () {
   menuButton.classList.toggle("active");
   menuOverlay.classList.toggle("open");
 });
+
+function search_function() {
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("list");
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+          
+      } else {
+          li[i].style.display = "none";
+      }
+  }
+}
