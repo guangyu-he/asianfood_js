@@ -8,7 +8,7 @@ function initMap() {
         li_ele.setAttribute('id','list_'+i);
         var a_ele = document.createElement('a');
         a_ele.innerHTML = locations[i][0];
-        a_ele.href = "";
+        a_ele.href = "#";
         li_ele.appendChild(a_ele);
         document.getElementById("list").appendChild(li_ele);
     };    
@@ -59,7 +59,6 @@ function initMap() {
                         map: map
                       });
                     markers.push(marker);
-
                     infowindow.setContent(locations[i][0]);
                     infowindow.open(map, marker);
                     map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
@@ -97,7 +96,7 @@ function initMap() {
         li_ele.setAttribute('id','list_'+i);
         var a_ele = document.createElement('a');
         a_ele.innerHTML = locations_sel[i][0];
-        a_ele.href = "";
+        a_ele.href = "#";
         li_ele.appendChild(a_ele);
         document.getElementById("list").appendChild(li_ele);
 
