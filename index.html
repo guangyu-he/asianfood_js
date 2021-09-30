@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Asian Food in Berlin</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>Asian Food in Berlin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
 
-<link rel="stylesheet" href="css/style.css">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<link rel="stylesheet" type="text/css" href="./style.css" />
-<script src="./index.js"></script>
-
-
-</head>
 <body>
-    <div class="menu-button">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
     <div class="menu-overlay">
       <div class="nav">
         <nav class="nav__items">
@@ -43,26 +34,41 @@
     <main>
       <div id="map"></div>
 
+    <div id="search_bar">
+      <p>Search</p>
+    </div>
     <br>
     <div id="content_bar">
-        <p>content</p>
+      <form>
+        Select your appetit:
+        <select id="myList">
+          <option>All</option>
+          <option>Korean</option>
+          <option>Chinese</option>  
+          <option>Jap</option>
+          <option>Viet</option>
+        </select>
+      </form>
         <ul id="list">
         </ul>
+        <div id="detail"></div>
+        <input type="button" value="back" id="back_btn" style="display: none;" onclick="main_list()">
     </div>
 
     <div class="navbar">
         <text>Asia Food in Berlin</text>
-        <!--<a href="#home" id="about">Home</a>-->
+    </div>
+
+    <div class="menu-button">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
 
 </main>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key="+ api_key + "&callback=initMap&v=weekly"
-      async
-    ></script>
 
-  <script  src="js/script.js"></script>
-  <script  src="gmap_api.js"></script>
+<script src="./index.js"></script>
+<script src="gmap_api.js"></script>
 
 </body>
 </html>

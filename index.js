@@ -1,3 +1,5 @@
+let map;
+let markers = [];
 
 function initMap() {
 
@@ -9,7 +11,7 @@ function initMap() {
         document.getElementById("list").appendChild(li_ele);
     };    
 
-    const map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       zoom: 13,
       center: { "lat":52.517674728732054,"lng":13.393789389208452 },
       zoomControl: true,
@@ -22,22 +24,23 @@ function initMap() {
       mapId: "e04d39f76af137b0",
     });
 
-    var marker;
     var infowindow = new google.maps.InfoWindow();
 
     for (var i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
       });
+      markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent(locations[i][0]);
           infowindow.open(map, marker);
           map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
-          map.setZoom(15);
-          //alert("!!!");
+          map.setZoom(16);
+          console.log(i);
+          show_detail(locations,i);
         }
       })(marker, i));
     }
@@ -48,24 +51,128 @@ function initMap() {
             var index_name = e.target.innerText;
             for(var i=0;i<locations.length;i++){
                 if(locations[i][0] == index_name){
-                    marker = new google.maps.Marker({
+                    const marker = new google.maps.Marker({
                         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                         map: map
                       });
-                    infowindow.setContent(locations[i][0]+"<br>"+"Tel:");
+                    infowindow.setContent(locations[i][0]);
                     infowindow.open(map, marker);
                     map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
                     map.setZoom(16);
+                    show_detail(locations,i);
                 }else{};
             }
         }
     }
+    var locations_sel = locations;
+    document.getElementById("myList").addEventListener("change", function() {
+
+      console.log(this.value);
+      for (var i = 0; i < locations_sel.length; i++) {
+        var list =document.getElementById('list_'+i);
+        list.parentNode.removeChild(list);
+      }
+      map.setZoom(13);
+      if(this.value == "All"){
+        locations_sel = locations;
+      }else if(this.value == "Chinese"){
+        locations_sel = locations_cn;
+      }else if(this.value == "Jap"){
+        locations_sel = locations_jp;
+      }
+
+      deleteMarkers();
+
+    for (var i = 0; i < locations_sel.length; i++) {
+      var li_ele = document.createElement('li');
+      //li_ele.setAttribute('onclick','test('+i+')');
+      li_ele.setAttribute('id','list_'+i);
+      li_ele.innerHTML = locations_sel[i][0];
+      document.getElementById("list").appendChild(li_ele);
+
+      const marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations_sel[i][1], locations_sel[i][2]),
+        map: map
+      });
+      markers.push(marker);
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations_sel[i][0]);
+          infowindow.open(map, marker);
+          map.panTo({ "lat":locations_sel[i][1], "lng":locations_sel[i][2]});
+          map.setZoom(16);
+          show_detail(locations_sel,i);
+        }
+      })(marker, i));
+      showMarkers();
+    }
+  }, false);
+}
+
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+function deleteMarkers() {
+  hideMarkers();
+  markers = [];
+}
+function hideMarkers() {
+  setMapOnAll(null);
+}
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+function show_detail(location,index){
+  document.getElementById("list").style = "display:none";
+  document.getElementById("detail").style = "display:block";
+  
+  document.getElementById("back_btn").style = "display:inline";
+}
+
+function main_list(){
+  document.getElementById("list").style = "display:block";
+  document.getElementById("detail").style = "display:none";
+  document.getElementById("back_btn").style = "display:none";
+  map.setZoom(13);
+}
+
+function select_type(){
+    var mylist = document.getElementById("myList");
+    document.getElementById("demo").value = mylist.options[mylist.selectedIndex].text;
 }
 
 var locations = [
-    ['Nin Hao', 52.512362451375004, 13.312230259842423],
-    ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841],
-    ['Cocolo Ramen', 52.52733460659252, 13.399351013815066],
-    ['Cocoro Japanese Kitchen', 52.49091908101604, 13.38632444596675],
-    ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805]
+    ['Nin Hao', 52.512362451375004, 13.312230259842423,'cn'],
+    ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841,'jp'],
+    ['Cocolo Ramen', 52.52733460659252, 13.399351013815066,'jp'],
+    ['Cocoro Japanese Kitchen', 52.49091908101604, 13.38632444596675,'jp'],
+    ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805,'jp']
   ];
+
+var locations_cn = [];
+var locations_jp = [];
+var locations_kr = [];
+var locations_vi = [];
+
+var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
+for(var i=0;i<locations.length;i++){
+  if(locations[i][3] == 'cn'){
+    locations_cn[i_cn] = locations[i];
+    i_cn++;
+  }else if(locations[i][3] == 'jp'){
+    locations_jp[i_jp] = locations[i];
+    i_jp++;
+  }else{}
+}
+
+const menuButton = document.querySelector(".menu-button");
+const menuOverlay = document.querySelector(".menu-overlay");
+
+menuButton.addEventListener("click", function () {
+  menuButton.classList.toggle("active");
+  menuOverlay.classList.toggle("open");
+});
