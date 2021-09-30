@@ -47,30 +47,30 @@ function initMap() {
       })(marker, i));
     }
 
+    var locations_sel = locations;
     let ul = document.getElementsByTagName('ul')[0];
     ul.onclick = function(e){
         if (e.target != ul) {
             var index_name = e.target.innerText;
             document.getElementById("search_bar").style = "display:none";
-            for(var i=0;i<locations.length;i++){
-                if(locations[i][0] == index_name){
-                    const marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map
-                      });
-                    markers.push(marker);
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                    map.panTo({ "lat":locations[i][1], "lng":locations[i][2]});
+            hideMarkers();
+            for(var i=0;i<locations_sel.length;i++){
+                if(locations_sel[i][0] == index_name){
+                    markers[i].setMap(map);
+                    infowindow.setContent(locations_sel[i][0]);
+                    infowindow.open(map, markers[i]);
+                    map.panTo({ "lat":locations_sel[i][1], "lng":locations_sel[i][2]});
                     map.setZoom(16);
-                    show_detail(locations,i);
+                    show_detail(locations_sel,i);
                 }else{};
             }
         }
     }
 
-    var locations_sel = locations;
     document.getElementById("myList").addEventListener("change", function() {
+
+      document.getElementById("search_bar").value = "";
+      document.getElementById("search_bar").placeholder = "Search for names..";
 
       for (var i = 0; i < locations_sel.length; i++) {
         var list =document.getElementById('list_'+i);
@@ -138,7 +138,11 @@ function showMarkers() {
 }
 
 function show_detail(location,index){
-  hideMarkers();
+  for(var i=0;i<markers.length;i++){
+    if(i != index){
+      markers[i].setMap(null);
+    }else{}
+  }
   markers[index].setMap(map);
   document.getElementById("list").style = "display:none";
   document.getElementById("select_type").style = "display:none";
@@ -178,11 +182,6 @@ function main_list(){
 
   document.getElementById("back_btn").style = "display:none";
   map.setZoom(13);
-}
-
-function select_type(){
-    var mylist = document.getElementById("myList");
-    document.getElementById("demo").value = mylist.options[mylist.selectedIndex].text;
 }
 
 var locations = [
