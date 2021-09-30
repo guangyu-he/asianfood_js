@@ -38,6 +38,24 @@
   text-align:center;
 }
 
+#myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  position: relative;
+  left: 70%;
+  top: 5%;
+  width: 30%;
+  height: 10%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  z-index: 1;
+  border-radius: 2em;
+  background:rgba(255, 255, 255, 0.9);
+  text-align:center;
+}
+
 body {margin:0;}
 
 ul {
