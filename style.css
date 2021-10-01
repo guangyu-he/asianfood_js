@@ -103,6 +103,19 @@ ul {
   padding: 0;
   line-height: 300%;
 }
+#detail a {
+  color: blue;
+}
+li a {
+  text-decoration: none;
+  color: gray;
+}
+li a.visited {
+  text-decoration: none;
+}
+li a.active {
+  text-decoration: none;
+}
 
 .navbar {
   overflow: hidden;
