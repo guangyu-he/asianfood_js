@@ -48,6 +48,41 @@ function initMap() {
     mapId: "e04d39f76af137b0",
   });
 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        const measle = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: {
+            url: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle.png",
+            size: new google.maps.Size(7, 7),
+            anchor: new google.maps.Point(4, 4),
+          }
+        });
+
+        google.maps.event.addListener(measle, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent("your location");
+            infowindow.open(map, marker);
+            map.setCenter(pos);
+          }
+        })(measle, i));
+      },
+      () => {
+        handleLocationError(true, infowindow, map.getCenter());
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infowindow, map.getCenter());
+  }
+
   create_list_function(locations_sel);
   create_markers_function(locations_sel);
   create_marker_listener_function(locations_sel);
@@ -215,6 +250,16 @@ function hideMarkers() {
 }
 function showMarkers() {
   setMapOnAll(map);
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
 }
 
 //menu button
