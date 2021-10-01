@@ -23,17 +23,17 @@ body {
 #float_bar
 {
   position: relative;
-  margin-top: 10%;
+  margin-top: 8%;
   margin-left: 70%;
 }
 @media screen and (min-width: 2561px) { 
   #float_bar {
-    width: 700px;
+    width: 650px;
   } 
 } 
 @media screen and (max-width: 2560px) { 
   #float_bar {
-    width: 600px;
+    width: 550px;
   } 
 } 
 @media screen and (max-width: 1440px) { 
@@ -60,15 +60,24 @@ body {
   }
 } 
 
+nav ul{height: 460px;}
+nav ul{overflow:hidden; overflow-y:scroll;}
+
 #content_bar
 {
   position: relative;
   margin: auto;
+  height: 500px;
   border: 0px solid #F00;
   z-index: 1;
   border-radius: 2em;
   background:rgba(255, 255, 255, 0.9);
   text-align:center;
+}
+
+#select_type
+{
+  margin-bottom: 10px;
 }
 
 #search_bar {
@@ -84,14 +93,6 @@ body {
   border-radius: 2em;
   background:rgba(255, 255, 255, 0.9);
   text-align:center;
-}
-
-#version {
-  position: fixed;
-  bottom: 0.5%;
-  right: 4rem;
-  z-index: 1;
-  color: rgb(255, 255, 255);
 }
 
 body {margin:0;}

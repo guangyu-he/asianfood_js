@@ -9,7 +9,17 @@ var locations = [
   ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841,'jp'],
   ['Cocolo Ramen', 52.52733460659252, 13.399351013815066,'jp'],
   ['Cocoro Japanese Kitchen', 52.49091908101604, 13.38632444596675,'jp'],
-  ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805,'jp']
+  ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805,'jp'],
+  ['How How Restaurantbetriebs',52.601130133487196, 13.330617427385228,'cn'],
+  ['Jing Yang',52.45606094461519, 13.32475671573826,'cn'],
+  ['Do De Li',52.5064500779616, 13.31019782923253,'cn'],
+  ['LIU Nudelhaus',52.51132796493441, 13.38756865621812,'cn'],
+  ['Heno Heno',52.50403598621028, 13.315699469710632,'jp'],
+  ['Zen',52.5010634587002, 13.325309240874818,'jp'],
+  ['Wawa Berlin',52.49038846558931, 13.355625269710188,'kr'],
+  ['Angry Chicken',52.500725810242265, 13.422956342725069,'kr'],
+  ['Arirang Restaurant',52.507026931111284, 13.326133145116177,'kr'],
+  ['Monsieur Vuong',52.5267942084373, 13.407943410189501,'vi'],
 ];
 var locations_sel = locations;
 var locations_cn = [];
@@ -28,7 +38,7 @@ for(var i=0;i<locations.length;i++){
     locations_kr[i_kr] = locations[i];
     i_kr++;
   }else if(locations[i][3] == 'vi'){
-    locations_kr[i_vi] = locations[i];
+    locations_vi[i_vi] = locations[i];
     i_vi++;
   }else{}
 }
