@@ -80,7 +80,6 @@ function initMap() {
           return function() {
             infowindow.setContent("your location");
             infowindow.open(map, marker);
-            map.setCenter(pos);
           }
         })(measle, i));
       },
@@ -206,6 +205,14 @@ function search_function() {
   }
 }
 
+//list highlight
+function mouseover_function(id){
+  document.getElementById(id).style = "border: solid 1px gray; border-radius: 2em";
+}
+function mouseout_function(id){
+  document.getElementById(id).style = "border: solid 0px gray; border-radius: 2em";
+}
+
 //control events
 function create_list_function(location_list){
   for(var i=0;i<location_list.length;i++){
@@ -215,6 +222,8 @@ function create_list_function(location_list){
     a_ele.innerHTML = location_list[i][0];
     a_ele.href = "#";
     li_ele.appendChild(a_ele);
+    li_ele.setAttribute("onmouseout","mouseout_function('list_"+i+"')");
+    li_ele.setAttribute("onmouseover","mouseover_function('list_"+i+"')");
     document.getElementById("list").appendChild(li_ele);
   };   
 }
