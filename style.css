@@ -1,3 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: normal 100% Verdana, Arial, sans-serif;
+}
+
 #map
 {
     position: absolute;
@@ -10,13 +20,50 @@
     border-radius: 0em;
 }
 
+#float_bar
+{
+  position: relative;
+  margin-top: 10%;
+  margin-left: 70%;
+}
+@media screen and (min-width: 2561px) { 
+  #float_bar {
+    width: 700px;
+  } 
+} 
+@media screen and (max-width: 2560px) { 
+  #float_bar {
+    width: 600px;
+  } 
+} 
+@media screen and (max-width: 1440px) { 
+  #float_bar {
+    width: 400px;
+  } 
+} 
+@media screen and (max-width: 1024px) { 
+  #float_bar {
+    width: 300px;
+  } 
+} 
+@media screen and (max-width: 768px) { 
+  #float_bar {
+    width: 150px;
+  } 
+} 
+@media screen and (max-width: 425px) { 
+  #float_bar {
+    width: 100px;
+  }
+  body {
+    font-size: 100em;
+  }
+} 
+
 #content_bar
 {
   position: relative;
-  left: 70%;
-  top: 15%;
-  width: 30%;
-  height: 60%;
+  margin: auto;
   border: 0px solid #F00;
   z-index: 1;
   border-radius: 2em;
@@ -25,13 +72,10 @@
 }
 
 #search_bar {
+  width: 100%;
   background-position: 10px 12px;
   background-repeat: no-repeat;
   position: relative;
-  left: 70%;
-  top: 5%;
-  width: 30%;
-  height: 10%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
@@ -68,21 +112,15 @@ ul {
   width: 100%;
 }
 
-.navbar text {
+.title_bar{
+  bottom: 0;
+  height: 3.5%;
+  left: 3%;
+  position: fixed;
+  cursor: pointer;
+  z-index: 3;
   float: left;
-  display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-.navbar a {
-  float: right;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
   font-size: 17px;
 }

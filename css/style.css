@@ -1,25 +1,10 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  font-size: 16px;
-}
-
-html {
-  font-size: 100%;
-  font-family: sans-serif;
-}
-
 .menu-button {
+  bottom: 0;
+  height: 3.5%;
+  right: 3%;
   width: 1.5rem;
   position: fixed;
-  bottom: 0.8rem;
-  right: 2rem;
   cursor: pointer;
-  height: calc(0.25rem * 5);
   z-index: 3;
 }
 .menu-button span {
