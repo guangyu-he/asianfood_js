@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
-<body>
+<body onload="load_database_locations()">
     <div class="menu-overlay">
       <div class="nav">
         <nav class="nav__items">
@@ -27,6 +27,7 @@
           <p class="nav__category">Version</p>
           <a class="nav__item" href="#">Website: 2021-10-01</a>
           <a class="nav__item" href="#">Restaurant: 2021-10-01</a>
+          <a class="nav__item" id="upload_loc" href="javascript:upload_locations()">upload_locations</a>
         </nav>
 
       </div>
@@ -73,10 +74,9 @@
 
 
 </main>
-
+</body>
+<script src="database.js"></script>
 <script src="./index.js"></script>
 <script src="gmap_api.js"></script>
-
-</body>
 </html>
 
