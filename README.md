@@ -1,3 +1,3 @@
 # asianfood-in-berlin
 
-Author: Guangyu He, Sisi Huang
+Main Author: Guangyu He, Sisi Huang
