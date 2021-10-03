@@ -24,6 +24,13 @@ var locations_kr = [];
 var locations_vi = [];
 var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
 
+//versions
+var versions_local = {
+  id: "",
+  web_version: 202110031700,
+  data_version: 202110031630
+};
+
 function upload_locations(){
   for(var i=0;i<locations.length;i++){
     var url_upload = "upload_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5];
@@ -53,8 +60,10 @@ function load_database_locations(){
     }
   ).responseText;
   if( data_from_php == null || data_from_php == ""){
+    versions_local.id = "local";
     return locations_builtin;
   }else{
+    load_database_versions();
     document.getElementById("upload_loc").style = "display:none";
     var location_list = data_from_php.split('<br>');
     var locations_out = [];
@@ -67,8 +76,45 @@ function load_database_locations(){
   }
 }
 
+function load_database_versions(){
+  var data_from_php = $.ajax(
+    {
+      url: 'return_versions.php',
+      success: function (data) {},
+      dataType: "text",
+      async: false,
+      error: function (err) {
+          console.log(err);
+      }
+    }
+  ).responseText;
+  var version_list = data_from_php.split('<br>');
+  versions_local.data_version = parseInt(version_list[2]);
+  versions_local.id = version_list[0];
+}
+
+function update_database_versions(){
+  var url_upload = "update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version;
+  $.ajax({
+    url: url_upload,
+    success: function (data) {
+      //console.log(data);
+    },
+    error: function (err) {
+      console.log(err);
+    }     
+  });
+}
+
 function onload_function(){
+  //loading data from server
   locations = load_database_locations();
+  update_database_versions();
+  document.getElementById("version").innerHTML = "Version: " + versions_local.id;
+  document.getElementById("web_version").innerHTML = "Web Version: " + versions_local.web_version;
+  document.getElementById("data_version").innerHTML = "Data Version: " + versions_local.data_version;
+
+  //cat. all locations
   for(var i=0;i<locations.length;i++){
     if(locations[i][3] == 'cn'){
       locations_cn[i_cn] = locations[i];
@@ -84,5 +130,7 @@ function onload_function(){
       i_vi++;
     }else{}
   }
+
+  //load map
   initMap();
 }
