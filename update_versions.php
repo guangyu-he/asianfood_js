@@ -10,9 +10,18 @@ mysqli_query($conn , "set names utf8");
 
 $id = $_GET['id'];
 $web_version = $_GET['wv'];
+$data_version = $_GET['dv'];
 
+if( $web_version == null && $data_version != null ){
+  $sql = "UPDATE versions SET data_version='$data_version' WHERE id='$id'";
+}elseif( $web_version != null && $data_version == null ){
+  $sql = "UPDATE versions SET web_version='$web_version' WHERE id='$id'";
+}elseif( $web_version != null && $data_version != null ){
+  $sql = "UPDATE versions SET web_version='$web_version',data_version='$data_version' WHERE id='$id'";
+}else {
+  echo "输入无效w\n";
+}
 //echo $name; 
-$sql = "UPDATE versions SET web_version='$web_version' WHERE id='$id'";
  
  
 mysqli_select_db( $conn, $dbname );

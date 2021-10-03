@@ -27,7 +27,7 @@ var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
 //versions
 var versions_local = {
   id: "",
-  web_version: 202110031700,
+  web_version: 202110031740,
   data_version: 202110031630
 };
 
