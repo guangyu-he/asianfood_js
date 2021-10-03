@@ -3,30 +3,6 @@ let map;
 let markers = [];
 var infowindow;
 
-//locations 
-var locations = [];
-var locations_sel = [];
-var locations_cn = [];
-var locations_jp = [];
-var locations_kr = [];
-var locations_vi = [];
-var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
-for(var i=0;i<locations.length;i++){
-  if(locations[i][3] == 'cn'){
-    locations_cn[i_cn] = locations[i];
-    i_cn++;
-  }else if(locations[i][3] == 'jp'){
-    locations_jp[i_jp] = locations[i];
-    i_jp++;
-  }else if(locations[i][3] == 'kr'){
-    locations_kr[i_kr] = locations[i];
-    i_kr++;
-  }else if(locations[i][3] == 'vi'){
-    locations_vi[i_vi] = locations[i];
-    i_vi++;
-  }else{}
-}
-
 function initMap() {
   locations_sel = locations;
   infowindow = new google.maps.InfoWindow();

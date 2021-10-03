@@ -1,3 +1,4 @@
+//locations 
 var locations_builtin = [
     ['Nin Hao', 52.512362451375004, 13.312230259842423,'cn','',''],
     ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841,'jp','',''],
@@ -15,125 +16,73 @@ var locations_builtin = [
     ['Arirang Restaurant',52.507026931111284, 13.326133145116177,'kr','',''],
     ['Monsieur Vuong',52.5267942084373, 13.407943410189501,'vi','',''],
   ];
-
-var sql_return;
-var sql_array,sql_name,sql_id,sql_gold,sql_usr_str,sql_pl,sql_updated_date;
+var locations = [];
+var locations_sel = [];
+var locations_cn = [];
+var locations_jp = [];
+var locations_kr = [];
+var locations_vi = [];
+var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
 
 function upload_locations(){
-    for(var i=0;i<locations.length;i++){
-        setTimeout(upload_location(locations[i]),500);
-    }
-}
-
-function upload_location(location_list){
-    if(location_list == null){
-        return false;
-    }
-    else{
-        console.log("upload_locations.php?n="+location_list[0]+"&lat="+location_list[1]+"&lng="+location_list[2]+"&type="+location_list[3]+"&r="+location_list[4]+"&rd="+location_list[5]);
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET","upload_locations.php?n="+location_list[0]+"&lat="+location_list[1]+"&lng="+location_list[2]+"&type="+location_list[3]+"&r="+location_list[4]+"&rd="+location_list[5],true);
-        xmlhttp.send();
-    }
+  for(var i=0;i<locations.length;i++){
+    var url_upload = "upload_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5];
+    $.ajax({
+      url: url_upload,
+      success: function (data) {
+        //console.log(data);
+      },
+      error: function (err) {
+        console.log(err);
+      }     
+    });
+  }
+  window.location.reload(true);
 }
 
 function load_database_locations(){
-    var xmlhttp = new XMLHttpRequest(); 
-    xmlhttp.onload = function(){
-      var sql_return = this.responseText;
-      if(sql_return == "" || sql_return == null){
-        load_local_locations();
+  var data_from_php = $.ajax(
+    {
+      url: 'return_locations.php',
+      success: function (data) {},
+      dataType: "text",
+      async: false,
+      error: function (err) {
+          console.log(err);
       }
-      else{
-          document.getElementById("upload_loc").style = "display:none";
-          var location_list = sql_return.split('<br>');
-          for(var i=0;i<location_list.length - 1;i++){
-              locations[i] = location_list[i].split(",");
-              locations[i][1] = parseFloat(locations[i][1]);
-              locations[i][2] = parseFloat(locations[i][2]);
-          };
-          initMap();
-      };
-      
-    };    
-    xmlhttp.open("GET","return_locations.php",true);
-    xmlhttp.send();    
+    }
+  ).responseText;
+  if( data_from_php == null || data_from_php == ""){
+    return locations_builtin;
+  }else{
+    document.getElementById("upload_loc").style = "display:none";
+    var location_list = data_from_php.split('<br>');
+    var locations_out = [];
+    for(var i=0;i<location_list.length - 1;i++){
+      locations_out[i] = location_list[i].split(",");
+      locations_out[i][1] = parseFloat(locations_out[i][1]);
+      locations_out[i][2] = parseFloat(locations_out[i][2]);
+    };
+    return locations_out;
+  }
 }
 
-function load_local_locations(){
-  locations = locations_builtin;
+function onload_function(){
+  locations = load_database_locations();
+  for(var i=0;i<locations.length;i++){
+    if(locations[i][3] == 'cn'){
+      locations_cn[i_cn] = locations[i];
+      i_cn++;
+    }else if(locations[i][3] == 'jp'){
+      locations_jp[i_jp] = locations[i];
+      i_jp++;
+    }else if(locations[i][3] == 'kr'){
+      locations_kr[i_kr] = locations[i];
+      i_kr++;
+    }else if(locations[i][3] == 'vi'){
+      locations_vi[i_vi] = locations[i];
+      i_vi++;
+    }else{}
+  }
   initMap();
-}
-
-function returnuser(str){
-    if(str == ""){
-      document.getElementById("txtHint").innerHTML = "";
-      return;
-    }
-    else{ 
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onload = function(){
-        sql_return = this.responseText;
-      };
-      xmlhttp.open("GET","returnuser.php?q="+str,true);
-      xmlhttp.send();
-    }
-    setTimeout(function(){
-        return;
-    },50);
-}
-
-function adduser(pass){
-    if(pass == ""){
-      document.getElementById("txtHint").innerHTML = "";
-      return;
-    }
-    else{
-      var usr_js = JSON.stringify(usr);
-      var pl_js = JSON.stringify(pl);
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onload = function(){
-      };
-      xmlhttp.open("GET","adduser.php?n="+usr.name+"&p="+pass+"&g="+usr.money+"&u="+usr_js+"&pl="+pl_js,true);
-      xmlhttp.send();
-    }
-}
-
-function user_log(){
-  returnuser(document.getElementById("username_in").value);
-  setTimeout(function(){
-    sql_array = sql_return.split("<br>");
-    var usr_password = sql_array[2];
-    if(usr_password == document.getElementById("password_in").value){
-      alert("登陆成功");
-      sql_id = sql_array[0];
-      usr = JSON.parse(sql_array[4]);
-      pl = JSON.parse(sql_array[5]);
-      sql_updated_date = sql_array[6];
-      onload();
-      closefunction();
-    }
-    else{
-      alert("用户不存在或密码错误");
-    }
-  },50);
-}
-
-function user_reg(){
-  returnuser(document.getElementById("username_in").value);
-  setTimeout(function(){
-    sql_array = sql_return.split("<br>");
-    if(sql_array[1] == document.getElementById("username_in").value){
-      alert("用户已存在");
-    }
-    else{
-      usr.name = document.getElementById("username_in").value;
-      adduser(document.getElementById("password_in").value);
-      setTimeout(function(){
-        alert("注册成功");
-        onload();
-        closefunction();
-      },50);
-    }
-  },50);
 }
