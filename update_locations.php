@@ -15,8 +15,10 @@ $lng = $_GET['lng'];
 $type = $_GET['type'];
 $review = $_GET['r'];
 $review_details = $_GET['rd'];
+$updated_date = date('Y-m-d H:i:s');
 
-$sql = "UPDATE locations SET name='$name',lat='$lat',lng='$lng',type='$type',review='$review',review_details='$review_details' WHERE id='$id'";
+
+$sql = "UPDATE locations SET name='$name',lat='$lat',lng='$lng',type='$type',review='$review',review_details='$review_details',updated_date='$updated_date' WHERE id='$id'";
 
  
 mysqli_select_db( $conn, $dbname );
