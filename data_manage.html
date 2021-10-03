@@ -138,25 +138,39 @@
 
       document.getElementById("name").addEventListener("change", function() {
         document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;
+        document.getElementById("name_btn").addEventListener("click", function() {
+          locations[index][0] = document.getElementById("name").value;
+        }, false);
       }, false);
 
-      document.getElementById("name_btn").addEventListener("click", function() {
-        locations[index][0] = document.getElementById("name").value;
+      document.getElementById("lat").addEventListener("change", function() {
+        document.getElementById("lat_btn").addEventListener("click", function() {
+          locations[index][1] = document.getElementById("lat").value;
+        }, false); 
       }, false);
-      document.getElementById("lat_btn").addEventListener("click", function() {
-        locations[index][1] = document.getElementById("lat").value;
+
+      document.getElementById("lng").addEventListener("change", function() {
+        document.getElementById("lng_btn").addEventListener("click", function() {
+          locations[index][2] = document.getElementById("lng").value;
+        }, false);
       }, false);
-      document.getElementById("lng_btn").addEventListener("click", function() {
-        locations[index][2] = document.getElementById("lng").value;
+
+      document.getElementById("type").addEventListener("change", function() {
+        document.getElementById("type_btn").addEventListener("click", function() {
+          locations[index][3] = document.getElementById("type").value;
+        }, false);
       }, false);
-      document.getElementById("type_btn").addEventListener("click", function() {
-        locations[index][3] = document.getElementById("type").value;
+
+      document.getElementById("review").addEventListener("change", function() {
+        document.getElementById("review_btn").addEventListener("click", function() {
+          locations[index][4] = document.getElementById("review").value;
+        }, false);
       }, false);
-      document.getElementById("review_btn").addEventListener("click", function() {
-        locations[index][4] = document.getElementById("review").value;
-      }, false);
-      document.getElementById("review_detail_btn").addEventListener("click", function() {
-        locations[index][5] = document.getElementById("review_detail").value;
+
+      document.getElementById("review_detail").addEventListener("change", function() {
+        document.getElementById("review_detail_btn").addEventListener("click", function() {
+          locations[index][5] = document.getElementById("review_detail").value;
+        }, false);
       }, false);
       
       document.getElementById("back_btn").style = "display:block";
@@ -173,7 +187,7 @@
       document.getElementById("back_btn").style = "display:none";
       document.getElementById("save_btn").style = "display:none";
 
-      var url_update = "update_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5]+"&id="+locations[i][6];
+      var url_update = "../update_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5]+"&id="+locations[i][6];
       $.ajax({
         url: url_update,
         success: function (data) {
