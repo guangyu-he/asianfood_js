@@ -224,9 +224,9 @@
       }, false);
     }
     function save(id,i){
-      var url_update = "../update_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5]+"&id="+locations[i][6];
+      var url_update_location = "../update_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5]+"&id="+locations[i][6];
       $.ajax({
-        url: url_update,
+        url: url_update_location,
         success: function (data) {
           //console.log(data);
         },
@@ -236,9 +236,9 @@
       });
 
       versions_local.data_version = prompt("type data_version","data_version");
-      var url_update = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
+      var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
       $.ajax({
-        url: url_update,
+        url: url_update_version,
         success: function (data) {
           //console.log(data);
         },
