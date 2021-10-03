@@ -22,7 +22,7 @@ if (mysqli_num_rows($retval) > 0) {
       echo "" .$row["type"]. ",";
       echo "" .$row["review"]. ",";
       echo "" .$row["review_details"]. ",";
-      echo "" .$row["updated_date"]. "<br>";
+      echo "" .$row["id"]. "<br>";
   }
 } else {
   echo "";
