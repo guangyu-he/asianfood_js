@@ -38,25 +38,31 @@ function upload_location(location_list){
 }
 
 function load_database_locations(){
-    var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest(); 
     xmlhttp.onload = function(){
-        var sql_return = this.responseText;
-        if(sql_return == "" || sql_return == null){
-            locations = locations_builtin;
-        }
-        else{
-            document.getElementById("upload_loc").style = "display:none";
-            var location_list = sql_return.split('<br>');
-            for(var i=0;i<location_list.length - 1;i++){
-                locations[i] = location_list[i].split(",");
-                locations[i][1] = parseFloat(locations[i][1]);
-                locations[i][2] = parseFloat(locations[i][2]);
-            };
-        };
-        initMap();
-    };
+      var sql_return = this.responseText;
+      if(sql_return == "" || sql_return == null){
+        load_local_locations();
+      }
+      else{
+          document.getElementById("upload_loc").style = "display:none";
+          var location_list = sql_return.split('<br>');
+          for(var i=0;i<location_list.length - 1;i++){
+              locations[i] = location_list[i].split(",");
+              locations[i][1] = parseFloat(locations[i][1]);
+              locations[i][2] = parseFloat(locations[i][2]);
+          };
+          initMap();
+      };
+      
+    };    
     xmlhttp.open("GET","return_locations.php",true);
-    xmlhttp.send();
+    xmlhttp.send();    
+}
+
+function load_local_locations(){
+  locations = locations_builtin;
+  initMap();
 }
 
 function returnuser(str){
