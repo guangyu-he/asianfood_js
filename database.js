@@ -27,7 +27,7 @@ var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
 //versions
 var versions_local = {
   id: "",
-  web_version: 202110031740,
+  web_version: 202110032206,
   data_version: 202110031630
 };
 
@@ -91,6 +91,10 @@ function load_database_versions(){
   var version_list = data_from_php.split('<br>');
   versions_local.data_version = parseInt(version_list[2]);
   versions_local.id = version_list[0];
+  if(versions_local.web_version <= parseInt(version_list[1])){
+    versions_local.web_version = parseInt(version_list[1]);
+  }else{
+  };
 }
 
 function update_database_versions(){
