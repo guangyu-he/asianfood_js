@@ -37,12 +37,12 @@ function initMap() {
           }
         });
 
-        google.maps.event.addListener(measle, 'click', (function(marker, i) {
+        google.maps.event.addListener(measle, 'click', (function(marker) {
           return function() {
             infowindow.setContent("your location");
             infowindow.open(map, marker);
           }
-        })(measle, i));
+        })(measle));
       },
       () => {
         handleLocationError(true, infowindow, map.getCenter());
