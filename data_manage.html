@@ -66,12 +66,22 @@
         <li><a style="color: blue;">Add a restaurant</a></li>
       </ul>
     </nav>
-    <div id="detail" style="width: auto; margin: auto; display: none;">
+    <div id="detail" style="width: 100%; margin: auto; display: none;">
       <text>Name:</text><input type="text" id="name"><input type="button" id="name_btn" value="ok"><a target="_blank" id="name_link">Open in Google</a>
       <input type="text" placeholder="new lat,lng" id="name_latlng" style="display: none;"><input type="button" id="name_latlng_btn" value="ok" style="display: none;"><br>
       <text>Lat:</text><input type="text" id="lat"><br>
       <text>Lng:</text><input type="text" id="lng"><br>
-      <text>Type:</text><input type="text" id="type"><br>
+      <text>Type:</text>
+      <form id="select_type">
+        <select id="myList">
+          <option></option>
+          <option>Korean</option>
+          <option>Chinese</option>  
+          <option>Jap</option>
+          <option>Viet</option>
+        </select>
+      </form>
+      <br>
       <text>review:</text><input type="text" id="review"><br>
       <text>review_detail:</text><input type="text" id="review_detail">
     </div>
@@ -164,9 +174,20 @@
       document.getElementById("name").value = locations[index][0];
       document.getElementById("lat").value = locations[index][1];
       document.getElementById("lng").value = locations[index][2];
-      document.getElementById("type").value = locations[index][3];
       document.getElementById("review").value = locations[index][4];
       document.getElementById("review_detail").value = locations[index][5];
+
+      if(locations[index][3] == ""){
+        document.getElementById("myList").value = "";
+        }else if(locations[index][3] == "cn"){
+          document.getElementById("myList").value = "Chinese";
+        }else if(locations[index][3] == "jp"){
+          document.getElementById("myList").value = "Jap";
+        }else if(locations[index][3] == "kr"){
+          document.getElementById("myList").value = "Korean";
+        }else if(locations[index][3] == "vi"){
+          document.getElementById("myList").value = "Viet";
+        }else{}
 
       document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;
 
@@ -198,10 +219,6 @@
           locations[index][2] = document.getElementById("lng").value;
       }, false);
 
-      document.getElementById("type").addEventListener("change", function() {
-          locations[index][3] = document.getElementById("type").value;
-      }, false);
-
       document.getElementById("review").addEventListener("change", function() {
           locations[index][4] = document.getElementById("review").value;
       }, false);
@@ -220,6 +237,7 @@
       }, false);
       document.getElementById("save_btn").style = "display:block"; 
       document.getElementById("save_btn").addEventListener("click", function() {
+        locations[index][3] = type;
         for(var i=0;i<4;i++){
           if(locations[index][i] == null){
             alert("insufficient input");
@@ -277,6 +295,7 @@
       window.location.reload(true);
     }
     function main_list(){
+      type = null;
       document.getElementById("list").style = "display:block";
       document.getElementById("search_bar").style = "display:block";
       document.getElementById("detail").style = "display:none";
@@ -320,6 +339,14 @@
       document.getElementById("search_bar").style = "display:none";
       document.getElementById("detail").style = "display:block";
 
+      document.getElementById("myList").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("lat").value = "";
+      document.getElementById("lng").value = "";
+      document.getElementById("review").value = "";
+      document.getElementById("review_detail").value = "";
+
+
       document.getElementById("name").value = document.getElementById("search_bar").value;
       var upload_location_array = [];
 
@@ -347,10 +374,6 @@
           upload_location_array[2] = document.getElementById("lng").value;
       }, false);
 
-      document.getElementById("type").addEventListener("change", function() {
-          upload_location_array[3] = document.getElementById("type").value;
-      }, false);
-
       document.getElementById("review").addEventListener("change", function() {
           upload_location_array[4] = document.getElementById("review").value;
       }, false);
@@ -365,6 +388,8 @@
       }, false);
       document.getElementById("save_btn").style = "display:block"; 
       document.getElementById("save_btn").addEventListener("click", function() {
+        upload_location_array[3] = type;
+        console.log(upload_location_array);
         for(var i=0;i<4;i++){
           if(upload_location_array[i] == null){
             alert("insufficient input");
@@ -376,7 +401,6 @@
             upload_location_array[i] = "";
           }else{}
         }
-        //console.log(upload_location_array);
         upload_location(upload_location_array);
       }, false);
     }
@@ -443,6 +467,7 @@
     }
 
     var locations;
+    var type;
     function onload_function(){
       //loading data from server
       locations = load_database_locations();
@@ -463,6 +488,20 @@
               }
           }
       }
+
+      document.getElementById("myList").addEventListener("change", function() {
+        if(this.value == ""){
+          type = null;
+        }else if(this.value == "Chinese"){
+          type = "cn";
+        }else if(this.value == "Jap"){
+          type = "jp";
+        }else if(this.value == "Korean"){
+          type = "kr";
+        }else if(this.value == "Viet"){
+          type = "vi";
+        }else{}
+      }, false);
 
     }
   </script>
