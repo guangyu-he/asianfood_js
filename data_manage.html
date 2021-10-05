@@ -63,11 +63,12 @@
     <input type="text" id="search_bar" onkeyup="search_function()" placeholder="Search for names.." title="Type in a name">
     <nav>
       <ul id="list">
+        <li><a style="color: blue;">Add a restaurant</a></li>
       </ul>
     </nav>
     <div id="detail" style="display: none;">
-      <text>Name:</text><input type="text" id="name"><input type="button" id="name_btn" value="change"><a target="_blank" id="name_link">Open in Google</a>
-      <input type="text" placeholder="new lat,lng" id="name_latlng" style="display: none;"><input type="button" id="name_latlng_btn" value="change" style="display: none;"><br>
+      <text>Name:</text><input type="text" id="name"><input type="button" id="name_btn" value="ok"><a target="_blank" id="name_link">Open in Google</a>
+      <input type="text" placeholder="new lat,lng" id="name_latlng" style="display: none;"><input type="button" id="name_latlng_btn" value="ok" style="display: none;"><br>
       <text>Lat:</text><input type="text" id="lat"><input type="button" id="lat_btn" value="change"><br>
       <text>Lng:</text><input type="text" id="lng"><input type="button" id="lng_btn" value="change"><br>
       <text>Type:</text><input type="text" id="type"><input type="button" id="type_btn" value="change"><br>
@@ -144,7 +145,11 @@
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
               li[i].style.display = "";
           } else {
-              li[i].style.display = "none";
+              if(txtValue == "Add a restaurant"){
+                li[i].style.display = "";
+              }else{
+                li[i].style.display = "none";
+              }
           }
       }
     }
@@ -185,33 +190,23 @@
       }, false);
 
       document.getElementById("lat").addEventListener("change", function() {
-        document.getElementById("lat_btn").addEventListener("click", function() {
           locations[index][1] = document.getElementById("lat").value;
-        }, false); 
       }, false);
 
       document.getElementById("lng").addEventListener("change", function() {
-        document.getElementById("lng_btn").addEventListener("click", function() {
           locations[index][2] = document.getElementById("lng").value;
-        }, false);
       }, false);
 
       document.getElementById("type").addEventListener("change", function() {
-        document.getElementById("type_btn").addEventListener("click", function() {
           locations[index][3] = document.getElementById("type").value;
-        }, false);
       }, false);
 
       document.getElementById("review").addEventListener("change", function() {
-        document.getElementById("review_btn").addEventListener("click", function() {
           locations[index][4] = document.getElementById("review").value;
-        }, false);
       }, false);
 
       document.getElementById("review_detail").addEventListener("change", function() {
-        document.getElementById("review_detail_btn").addEventListener("click", function() {
           locations[index][5] = document.getElementById("review_detail").value;
-        }, false);
       }, false);
       
       document.getElementById("back_btn").style = "display:inline";
@@ -220,6 +215,17 @@
       }, false);
       document.getElementById("save_btn").style = "display:block"; 
       document.getElementById("save_btn").addEventListener("click", function() {
+        for(var i=0;i<4;i++){
+          if(locations[index][i] == null){
+            alert("insufficient input");
+            return false;
+          }else{}
+        }
+        for(var i=4;i<6;i++){
+          if(locations[index][i] == null){
+            locations[index][i] = "";
+          }else{}
+        }
         save(locations[index][6],index);
       }, false);
     }
@@ -235,7 +241,7 @@
         }     
       });
 
-      versions_local.data_version = prompt("type data_version","data_version");
+      versions_local.data_version = return_version_date();
       var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
       $.ajax({
         url: url_update_version,
@@ -288,6 +294,133 @@
       document.getElementById("version").innerHTML = " Web Version:"+versions_local.web_version+" Data Version:"+versions_local.data_version;
     }
 
+    function add_location(){
+      document.getElementById("list").style = "display:none";
+      document.getElementById("search_bar").style = "display:none";
+      document.getElementById("detail").style = "display:block";
+
+      document.getElementById("name").value = document.getElementById("search_bar").value;
+      var upload_location_array = [];
+
+      document.getElementById("name_btn").addEventListener("click", function() {
+        document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;
+        document.getElementById("name_latlng").style = "display:block;";
+        document.getElementById("name_latlng_btn").style = "display:block;";
+        upload_location_array[0] = document.getElementById("name").value;
+      }, false);
+
+      document.getElementById("name_latlng_btn").addEventListener("click", function() {
+        upload_location_array[1] = document.getElementById("name_latlng").value.split(", ")[0];
+        upload_location_array[2] = document.getElementById("name_latlng").value.split(", ")[1];
+        document.getElementById("lat").value = upload_location_array[1];
+        document.getElementById("lng").value = upload_location_array[2];
+        document.getElementById("name_latlng").style = "display:none;";
+        document.getElementById("name_latlng_btn").style = "display:none;";
+      }, false); 
+
+      document.getElementById("lat").addEventListener("change", function() {
+          upload_location_array[1] = document.getElementById("lat").value;
+      }, false);
+
+      document.getElementById("lng").addEventListener("change", function() {
+          upload_location_array[2] = document.getElementById("lng").value;
+      }, false);
+
+      document.getElementById("type").addEventListener("change", function() {
+          upload_location_array[3] = document.getElementById("type").value;
+      }, false);
+
+      document.getElementById("review").addEventListener("change", function() {
+          upload_location_array[4] = document.getElementById("review").value;
+      }, false);
+
+      document.getElementById("review_detail").addEventListener("change", function() {
+          upload_location_array[5] = document.getElementById("review_detail").value;
+      }, false);
+      
+      document.getElementById("back_btn").style = "display:inline";
+      document.getElementById("back_btn").addEventListener("click", function() {
+        main_list();
+      }, false);
+      document.getElementById("save_btn").style = "display:block"; 
+      document.getElementById("save_btn").addEventListener("click", function() {
+        for(var i=0;i<4;i++){
+          if(upload_location_array[i] == null){
+            alert("insufficient input");
+            return false;
+          }else{}
+        }
+        for(var i=4;i<6;i++){
+          if(upload_location_array[i] == null){
+            upload_location_array[i] = "";
+          }else{}
+        }
+        //console.log(upload_location_array);
+        upload_location(upload_location_array);
+      }, false);
+    }
+
+    function upload_location(array){
+      var url_upload_location = "../upload_locations.php?n="+array[0]+"&lat="+array[1]+"&lng="+array[2]+"&type="+array[3]+"&r="+array[4]+"&rd="+array[5];
+      $.ajax({
+        url: url_upload_location,
+        success: function (data) {
+          //console.log(data);
+        },
+        error: function (err) {
+          console.log(err);
+        }     
+      });
+
+      versions_local.data_version = return_version_date();
+      var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
+      $.ajax({
+        url: url_update_version,
+        success: function (data) {
+          //console.log(data);
+        },
+        error: function (err) {
+          console.log(err);
+        }     
+      });
+
+      //window.location.reload(true);
+    }
+
+    function return_version_date(){
+      var time = new Date();
+      var year = String(time.getFullYear());
+      var month_int = time.getMonth()+1;
+      var month;
+      if(month_int<10){
+        month = "0" + String(month_int);
+      }else{
+        month = String(month_int);
+      }
+      var day_int = time.getDate();
+      var day;
+      if(day_int<10){
+        day = "0" + String(day_int);
+      }else{
+        day = String(day_int);
+      }
+      var hour_int = time.getHours();
+      var hour;
+      if(hour_int<10){
+        hour = "0" + String(hour_int);
+      }else{
+        hour = String(hour_int);
+      }
+      var min_int = time.getMinutes();
+      var min;
+      if(min_int<10){
+        min = "0" + String(min_int);
+      }else{
+        min = String(min_int);
+      }
+      return year+month+day+hour+min;
+    }
+
     var locations;
     function onload_function(){
       //loading data from server
@@ -302,7 +435,10 @@
               for(var i=0;i<locations.length;i++){
                   if(locations[i][0] == e.target.innerText){
                     show_detail(i);
-                  }else{};
+                  }else if(e.target.innerText == "Add a restaurant"){
+                    add_location();
+                  }
+                  else{};
               }
           }
       }
