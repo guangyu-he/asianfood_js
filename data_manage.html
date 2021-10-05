@@ -66,16 +66,17 @@
         <li><a style="color: blue;">Add a restaurant</a></li>
       </ul>
     </nav>
-    <div id="detail" style="display: none;">
+    <div id="detail" style="width: auto; margin: auto; display: none;">
       <text>Name:</text><input type="text" id="name"><input type="button" id="name_btn" value="ok"><a target="_blank" id="name_link">Open in Google</a>
       <input type="text" placeholder="new lat,lng" id="name_latlng" style="display: none;"><input type="button" id="name_latlng_btn" value="ok" style="display: none;"><br>
-      <text>Lat:</text><input type="text" id="lat"><input type="button" id="lat_btn" value="change"><br>
-      <text>Lng:</text><input type="text" id="lng"><input type="button" id="lng_btn" value="change"><br>
-      <text>Type:</text><input type="text" id="type"><input type="button" id="type_btn" value="change"><br>
-      <text>review:</text><input type="text" id="review"><input type="button" id="review_btn" value="change"><br>
-      <text>review_detail:</text><input type="text" id="review_detail"><input type="button" id="review_detail_btn" value="change">
+      <text>Lat:</text><input type="text" id="lat"><br>
+      <text>Lng:</text><input type="text" id="lng"><br>
+      <text>Type:</text><input type="text" id="type"><br>
+      <text>review:</text><input type="text" id="review"><br>
+      <text>review_detail:</text><input type="text" id="review_detail">
     </div>
     <input type="button" value="save" id="save_btn" style="display: none;">
+    <input type="button" value="delete" id="del_btn" style="color: red; display: none;">
     <input type="button" value="back" id="back_btn" style="display: none;">
 
     <div class="navbar">
@@ -213,6 +214,10 @@
       document.getElementById("back_btn").addEventListener("click", function() {
         main_list();
       }, false);
+      document.getElementById("del_btn").style = "display:inline";
+      document.getElementById("del_btn").addEventListener("click", function() {
+        delete_function(locations[index][6]);
+      }, false);
       document.getElementById("save_btn").style = "display:block"; 
       document.getElementById("save_btn").addEventListener("click", function() {
         for(var i=0;i<4;i++){
@@ -229,6 +234,22 @@
         save(locations[index][6],index);
       }, false);
     }
+
+    function delete_function(id){
+      var url_delete_location = "../delete_locations.php?id="+id;
+      $.ajax({
+        url: url_delete_location,
+        success: function (data) {
+          //console.log(data);
+        },
+        error: function (err) {
+          console.log(err);
+        }     
+      });
+
+      window.location.reload(true);
+    }
+
     function save(id,i){
       var url_update_location = "../update_locations.php?n="+locations[i][0]+"&lat="+locations[i][1]+"&lng="+locations[i][2]+"&type="+locations[i][3]+"&r="+locations[i][4]+"&rd="+locations[i][5]+"&id="+locations[i][6];
       $.ajax({
