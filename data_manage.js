@@ -131,6 +131,7 @@ function main_list(){
     document.getElementById("detail").style = "display:none";
     document.getElementById("back_btn").style = "display:none";
     document.getElementById("save_btn").style = "display:none";
+    document.getElementById("del_btn").style = "display:none";
     document.getElementById("name_latlng").style = "display:none;";
     document.getElementById("name_latlng_btn").style = "display:none;";
 }
