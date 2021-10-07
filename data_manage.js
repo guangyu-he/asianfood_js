@@ -54,6 +54,7 @@ function show_detail(index){
     document.getElementById("review").value = locations[index][4];
     document.getElementById("review_detail").value = locations[index][5];
     document.getElementById("myList").value = locations[index][3];
+    type = locations[index][3];
 
     document.getElementById("name").addEventListener("change", function() {
         document.getElementById("name_link").style = "display: block";
@@ -90,6 +91,10 @@ function show_detail(index){
 
     document.getElementById("review_detail").addEventListener("change", function() {
         locations[index][5] = document.getElementById("review_detail").value;
+    }, false);
+
+    document.getElementById("myList").addEventListener("change", function() {
+        type = this.value;
     }, false);
     
     document.getElementById("back_btn").style = "display:inline";
@@ -177,6 +182,10 @@ function add_location(){
     document.getElementById("review_detail").addEventListener("change", function() {
         upload_location_array[5] = document.getElementById("review_detail").value;
     }, false);
+
+    document.getElementById("myList").addEventListener("change", function() {
+        type = this.value;
+    }, false);
     
     document.getElementById("back_btn").style = "display:inline";
     document.getElementById("back_btn").addEventListener("click", function() {
@@ -223,9 +232,4 @@ function onload_function(){
             }
         }
     }
-
-    document.getElementById("myList").addEventListener("change", function() {
-        type = this.value;
-    }, false);
-
 }

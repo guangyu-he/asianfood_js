@@ -22,8 +22,8 @@ var locations_sel = [];
 //versions
 var versions_local = {
   id: "local",
-  web_version: 202110032206,
-  data_version: 202110031630
+  web_version: 202110071802,
+  data_version: 202110071802
 };
 
 function upload_locations(){
