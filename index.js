@@ -4,8 +4,12 @@ let markers = [];
 var infowindow;
 
 function initMap() {
-  locations_sel = locations;
-  infowindow = new google.maps.InfoWindow();
+
+  locations_sel = locations; //set init locations to "all"
+
+  infowindow = new google.maps.InfoWindow(); //init info window
+
+  //init map
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: { "lat":52.517674728732054,"lng":13.393789389208452 },
@@ -19,6 +23,7 @@ function initMap() {
     mapId: "e04d39f76af137b0",
   });
 
+  //geolocation blocks
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -48,15 +53,18 @@ function initMap() {
         handleLocationError(true, infowindow, map.getCenter());
       }
     );
-  } else {
+  }
+  else{
     // Browser doesn't support Geolocation
     handleLocationError(false, infowindow, map.getCenter());
-  }
+  };
 
+  //init locations list and markers
   create_list_function(locations_sel);
   create_markers_function(locations_sel);
   create_marker_listener_function(locations_sel);
 
+  //init list click listener
   let ul = document.getElementsByTagName('ul')[0];
   ul.onclick = function(e){
       if (e.target != ul) {
@@ -68,6 +76,7 @@ function initMap() {
       }
   }
 
+  //init appetit select list
   document.getElementById("myList").addEventListener("change", function() {
 
     document.getElementById("search_bar").value = "";
@@ -77,17 +86,9 @@ function initMap() {
       var list =document.getElementById('list_'+i);
       list.parentNode.removeChild(list);
     }
-    if(this.value == "All"){
-      locations_sel = locations;
-    }else if(this.value == "Chinese"){
-      locations_sel = locations_cn;
-    }else if(this.value == "Jap"){
-      locations_sel = locations_jp;
-    }else if(this.value == "Korean"){
-      locations_sel = locations_kr;
-    }else if(this.value == "Viet"){
-      locations_sel = locations_vi;
-    }else{}
+
+    const review_str = document.getElementById("myList_review").value;
+    locations_sel = loc_classification(locations,this.value,review_str);
 
     deleteMarkers();
     create_list_function(locations_sel);
@@ -98,7 +99,42 @@ function initMap() {
 
   }, false);
 
+  //init review select list
+  document.getElementById("myList_review").addEventListener("change", function() {
+
+    document.getElementById("search_bar").value = "";
+    document.getElementById("search_bar").placeholder = "Search for names..";
+
+    for (var i = 0; i < locations_sel.length; i++) {
+      var list =document.getElementById('list_'+i);
+      list.parentNode.removeChild(list);
+    }
+    const type_str = document.getElementById("myList").value;  
+    locations_sel = loc_classification(locations,type_str,this.value);
+
+    deleteMarkers();
+    create_list_function(locations_sel);
+    create_markers_function(locations_sel);
+    create_marker_listener_function(locations_sel);
+    showMarkers()
+    map.setZoom(13);
+
+  }, false);
 }
+
+//classification of locations' type and review
+function loc_classification(array,type,review){
+  /* array must be 2D */ 
+  var loc_out = [];
+  var index = 0;
+  for(var i=0;i<array.length;i++){
+      if( (array[i][3] == type || type == 'All') && (array[i][4] == review || review == 'All') ){
+          loc_out[index] = array[i];
+          index++;
+      };
+  };
+  return loc_out;
+};
 
 //content div control
 function show_detail(location,index){
@@ -232,6 +268,7 @@ function showMarkers() {
   setMapOnAll(map);
 }
 
+//geolocation handler
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(

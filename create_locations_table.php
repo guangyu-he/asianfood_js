@@ -10,7 +10,7 @@ $sql = "CREATE TABLE locations( ".
         "name VARCHAR(100) NOT NULL, ".
         "lat VARCHAR(20) NOT NULL, ".
         "lng VARCHAR(20) NOT NULL, ".
-        "type VARCHAR(2) NOT NULL, ".
+        "type VARCHAR(20) NOT NULL, ".
         "review VARCHAR(1) NOT NULL, ".
         "review_details LONGTEXT NOT NULL, ".
         "updated_date DATETIME, ".

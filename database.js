@@ -1,28 +1,23 @@
 //locations 
 var locations_builtin = [
-    ['Nin Hao', 52.512362451375004, 13.312230259842423,'cn','','',''],
-    ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841,'jp','','',''],
-    ['Cocolo Ramen', 52.52733460659252, 13.399351013815066,'jp','','',''],
-    ['Cocoro Japanese Kitchen', 52.49091908101604, 13.38632444596675,'jp','','',''],
-    ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805,'jp','','',''],
-    ['How How Restaurantbetriebs',52.601130133487196, 13.330617427385228,'cn','','',''],
-    ['Jing Yang',52.45606094461519, 13.32475671573826,'cn','','',''],
-    ['Do De Li',52.5064500779616, 13.31019782923253,'cn','','',''],
-    ['LIU Nudelhaus',52.51132796493441, 13.38756865621812,'cn','','',''],
-    ['Heno Heno',52.50403598621028, 13.315699469710632,'jp','','',''],
-    ['Zen',52.5010634587002, 13.325309240874818,'jp','','',''],
-    ['Wawa Berlin',52.49038846558931, 13.355625269710188,'kr','','',''],
-    ['Angry Chicken',52.500725810242265, 13.422956342725069,'kr','','',''],
-    ['Arirang Restaurant',52.507026931111284, 13.326133145116177,'kr','','',''],
-    ['Monsieur Vuong',52.5267942084373, 13.407943410189501,'vi','','',''],
+    ['Nin Hao', 52.512362451375004, 13.312230259842423,'Chinese','','',''],
+    ['MAMECHA Green Tea', 52.52733787931988, 13.406346673335841,'Japanese','','',''],
+    ['Cocolo Ramen', 52.52733460659252, 13.399351013815066,'Japanese','','',''],
+    ['Cocoro Japanese Kitchen', 52.49091908101604, 13.38632444596675,'Japanese','','',''],
+    ['Ishin Mittelstraße', 52.5181655951808, 13.386820790527805,'Japanese','','',''],
+    ['How How Restaurantbetriebs',52.601130133487196, 13.330617427385228,'Chinese','','',''],
+    ['Jing Yang',52.45606094461519, 13.32475671573826,'Chinese','','',''],
+    ['Do De Li',52.5064500779616, 13.31019782923253,'Chinese','','',''],
+    ['LIU Nudelhaus',52.51132796493441, 13.38756865621812,'Chinese','','',''],
+    ['Heno Heno',52.50403598621028, 13.315699469710632,'Japanese','','',''],
+    ['Zen',52.5010634587002, 13.325309240874818,'Japanese','','',''],
+    ['Wawa Berlin',52.49038846558931, 13.355625269710188,'Korean','','',''],
+    ['Angry Chicken',52.500725810242265, 13.422956342725069,'Korean','','',''],
+    ['Arirang Restaurant',52.507026931111284, 13.326133145116177,'Korean','','',''],
+    ['Monsieur Vuong',52.5267942084373, 13.407943410189501,'Viet','','',''],
   ];
 var locations = [];
 var locations_sel = [];
-var locations_cn = [];
-var locations_jp = [];
-var locations_kr = [];
-var locations_vi = [];
-var i_cn = 0,i_jp = 0,i_kr = 0,i_vi = 0;
 
 //versions
 var versions_local = {
@@ -117,23 +112,6 @@ function onload_function(){
   document.getElementById("version").innerHTML = "Version: " + versions_local.id;
   document.getElementById("web_version").innerHTML = "Web Version: " + versions_local.web_version;
   document.getElementById("data_version").innerHTML = "Data Version: " + versions_local.data_version;
-
-  //cat. all locations
-  for(var i=0;i<locations.length;i++){
-    if(locations[i][3] == 'cn'){
-      locations_cn[i_cn] = locations[i];
-      i_cn++;
-    }else if(locations[i][3] == 'jp'){
-      locations_jp[i_jp] = locations[i];
-      i_jp++;
-    }else if(locations[i][3] == 'kr'){
-      locations_kr[i_kr] = locations[i];
-      i_kr++;
-    }else if(locations[i][3] == 'vi'){
-      locations_vi[i_vi] = locations[i];
-      i_vi++;
-    }else{}
-  }
 
   //load map
   initMap();

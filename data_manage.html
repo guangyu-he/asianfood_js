@@ -77,7 +77,7 @@
           <option></option>
           <option>Korean</option>
           <option>Chinese</option>  
-          <option>Jap</option>
+          <option>Japanese</option>
           <option>Viet</option>
         </select>
       </form>
@@ -490,17 +490,7 @@
       }
 
       document.getElementById("myList").addEventListener("change", function() {
-        if(this.value == ""){
-          type = null;
-        }else if(this.value == "Chinese"){
-          type = "cn";
-        }else if(this.value == "Jap"){
-          type = "jp";
-        }else if(this.value == "Korean"){
-          type = "kr";
-        }else if(this.value == "Viet"){
-          type = "vi";
-        }else{}
+        type = this.value;
       }, false);
 
     }
