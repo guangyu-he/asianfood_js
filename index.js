@@ -137,6 +137,7 @@ function loc_classification(array,type,review){
 };
 
 //content div control
+var showing_detail = false;
 function show_detail(location,index){
   for(var i=0;i<markers.length;i++){
     if(i != index){
@@ -145,6 +146,7 @@ function show_detail(location,index){
       markers[i].setMap(map);
     }
   }
+  showing_detail = true;
   
   document.getElementById("list").style = "display:none";
   document.getElementById("select_type").style = "display:none";
@@ -168,6 +170,7 @@ function show_detail(location,index){
 }
 function main_list(){
   showMarkers();
+  showing_detail = false;
   document.getElementById("list").style = "display:block";
   document.getElementById("select_type").style = "display:block";
   document.getElementById("search_bar").style = "display:block";
@@ -243,6 +246,9 @@ function create_marker_listener_function(location_list){
   }
 }
 function click_marker_function(location_list,index,marker){
+  if(showing_detail){
+    return false;
+  }else{};
   document.getElementById("search_bar").style = "display:none";
   infowindow.setContent(location_list[index][0]);
   infowindow.open(map, marker);
