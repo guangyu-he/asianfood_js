@@ -1,8 +1,8 @@
 //versions
 var versions_local = {
-    id: "",
-    web_version: 202110032206,
-    data_version: 202110031630
+    id: "local",
+    web_version: 202110071746,
+    data_version: 202110071746
 };
 
 function load_database_versions(){
@@ -22,7 +22,18 @@ function load_database_versions(){
     versions_local.id = version_list[0];
     if(versions_local.web_version <= parseInt(version_list[1])){
         versions_local.web_version = parseInt(version_list[1]);
-    }else{};
+    }else{
+        var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version;
+        $.ajax({
+            url: url_update_version,
+            success: function (data) {
+                //console.log(data);
+            },
+            error: function (err) {
+                console.log(err);
+            }     
+        });
+    };
   
     document.getElementById("version").innerHTML = " Web Version:"+versions_local.web_version+" Data Version:"+versions_local.data_version;
 }
@@ -81,7 +92,7 @@ function save(id,i){
     });
 
     versions_local.data_version = return_version_date();
-    var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
+    var url_update_version = "../update_versions.php?id="+versions_local.id+"&dv="+versions_local.data_version;
     $.ajax({
         url: url_update_version,
         success: function (data) {
@@ -108,7 +119,7 @@ function upload_location(array){
     });
 
     versions_local.data_version = return_version_date();
-    var url_update_version = "../update_versions.php?id="+versions_local.id+"&wv="+versions_local.web_version+"&dv="+versions_local.data_version;
+    var url_update_version = "../update_versions.php?id="+versions_local.id+"&dv="+versions_local.data_version;
     $.ajax({
         url: url_update_version,
         success: function (data) {
@@ -119,6 +130,6 @@ function upload_location(array){
         }     
     });
 
-    //window.location.reload(true);
+    window.location.reload(true);
   }
   
