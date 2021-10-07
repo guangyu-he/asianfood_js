@@ -150,6 +150,7 @@ function show_detail(location,index){
   
   document.getElementById("list").style = "display:none";
   document.getElementById("select_type").style = "display:none";
+  document.getElementById("select_review").style = "display:none";
 
   document.getElementById("detail").style = "display:block";
 
@@ -173,6 +174,7 @@ function main_list(){
   showing_detail = false;
   document.getElementById("list").style = "display:block";
   document.getElementById("select_type").style = "display:block";
+  document.getElementById("select_review").style = "display:block";
   document.getElementById("search_bar").style = "display:block";
 
   document.getElementById("detail").style = "display:none";

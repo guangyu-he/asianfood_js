@@ -57,11 +57,11 @@ function show_detail(index){
     type = locations[index][3];
 
     document.getElementById("name").addEventListener("change", function() {
-        document.getElementById("name_link").style = "display: block";
-        document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;
         document.getElementById("name_latlng").style = "display:block;";
         document.getElementById("name_latlng_btn").style = "display:block;";
         document.getElementById("name_btn").addEventListener("click", function() {
+            document.getElementById("name_link").style = "display: block";
+            document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;    
             locations[index][0] = document.getElementById("name").value;
         }, false);
     }, false);
@@ -153,7 +153,8 @@ function add_location(){
     var upload_location_array = [];
 
     document.getElementById("name_btn").addEventListener("click", function() {
-        document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;
+        document.getElementById("name_link").style = "display: block";
+        document.getElementById("name_link").href = "http://maps.google.co.in/maps?q=" + document.getElementById("name").value;    
         document.getElementById("name_latlng").style = "display:block;";
         document.getElementById("name_latlng_btn").style = "display:block;";
         upload_location_array[0] = document.getElementById("name").value;
