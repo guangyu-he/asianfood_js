@@ -6,10 +6,11 @@
     <link rel="shortcut icon" href="img/icon.png"/>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
-<body onload="load_database_locations()">
+<body onload="onload_function()">
     <div class="menu-overlay">
       <div class="nav">
         <nav class="nav__items">
@@ -24,9 +25,9 @@
         </nav>
 
         <nav class="nav__items">
-          <p class="nav__category">Version</p>
-          <a class="nav__item" href="#">Website: 2021-10-01</a>
-          <a class="nav__item" href="#">Restaurant: 2021-10-01</a>
+          <p class="nav__category" id="version">Version:</p>
+          <a class="nav__item" href="#" id="web_version">Website: 2021-10-01</a>
+          <a class="nav__item" href="#" id="data_version">Restaurant: 2021-10-01</a>
           <a class="nav__item" id="upload_loc" href="javascript:upload_locations()">upload_locations</a>
         </nav>
 
@@ -50,8 +51,19 @@
           <option>All</option>
           <option>Korean</option>
           <option>Chinese</option>  
-          <option>Jap</option>
+          <option>Japanese</option>
           <option>Viet</option>
+        </select>
+      </form>
+      <form id="select_review">
+        Select your review:
+        <select id="myList_review">
+          <option>All</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>  
+          <option>4</option>
+          <option>5</option>
         </select>
       </form>
       <nav>
@@ -75,6 +87,7 @@
 
 </main>
 </body>
+<script src="return_version_date.js"></script>
 <script src="database.js"></script>
 <script src="./index.js"></script>
 <script src="gmap_api.js"></script>

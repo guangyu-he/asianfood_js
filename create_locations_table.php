@@ -1,7 +1,7 @@
 <?php
 $dbhost = 'localhost';  // mysql服务器主机地址
 $dbuser = 'test';            // mysql用户名
-$dbpass = '19950611';          // mysql用户名密码
+$dbpass = '0';          // mysql用户名密码
 $dbname = 'my_db';          // mysql用户名密码
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -10,7 +10,7 @@ $sql = "CREATE TABLE locations( ".
         "name VARCHAR(100) NOT NULL, ".
         "lat VARCHAR(20) NOT NULL, ".
         "lng VARCHAR(20) NOT NULL, ".
-        "type VARCHAR(2) NOT NULL, ".
+        "type VARCHAR(20) NOT NULL, ".
         "review VARCHAR(1) NOT NULL, ".
         "review_details LONGTEXT NOT NULL, ".
         "updated_date DATETIME, ".

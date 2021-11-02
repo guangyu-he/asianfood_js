@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AFB Database</title>
+    <link rel="shortcut icon" href="img/icon.png"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      nav ul{height: 100%;}
+      nav ul{overflow:hidden; overflow-y:scroll;}
+      li a {
+        text-decoration: none;
+        color: gray;
+      }
+      li a.visited {
+        text-decoration: none;
+      }
+      li a.active {
+        text-decoration: none;
+      }
+      ul {
+        list-style-type: none;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        line-height: 300%;
+      }
+      #search_bar {
+      width: 100%;
+      background-repeat: no-repeat;
+      font-size: 16px;
+      padding: 20px 40px auto 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      border-radius: 2em;
+      background:rgba(255, 255, 255, 0.9);
+      text-align:center;
+    }
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      position: fixed;
+      bottom: 0;
+      height: 5%;
+      width: 100%;
+    }
+
+    .title_bar{
+      bottom: 0;
+      height: 3.5%;
+      left: 3%;
+      position: fixed;
+      cursor: pointer;
+      z-index: 3;
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      font-size: 17px;
+    }
+    </style>
+  </head>
+  <body onload="onload_function()">
+    <input type="text" id="search_bar" onkeyup="search_function()" placeholder="Search for names.." title="Type in a name">
+    <nav>
+      <ul id="list">
+        <li><a style="color: blue;">Add a restaurant</a></li>
+      </ul>
+    </nav>
+    <div id="detail" style="width: 100%; margin: auto; display: none;">
+      <text>Name:</text><input type="text" id="name"><input type="button" id="name_btn" value="ok"><a target="_blank" id="name_link" style="display: none;">Open in Google</a>
+      <input type="text" placeholder="new lat,lng" id="name_latlng" style="display: none;"><input type="button" id="name_latlng_btn" value="ok" style="display: none;"><br>
+      <text>Lat:</text><input type="text" id="lat"><br>
+      <text>Lng:</text><input type="text" id="lng"><br>
+      <text>Type:</text>
+      <form id="select_type">
+        <select id="myList">
+          <option></option>
+          <option>Korean</option>
+          <option>Chinese</option>  
+          <option>Japanese</option>
+          <option>Viet</option>
+        </select>
+      </form>
+      <br>
+      <text>review:</text><input type="text" id="review"><br>
+      <text>review_detail:</text><input type="text" id="review_detail">
+    </div>
+    <input type="button" value="save" id="save_btn" style="display: none;">
+    <input type="button" value="delete" id="del_btn" style="color: red; display: none;">
+    <input type="button" value="back" id="back_btn" style="display: none;">
+
+    <div class="navbar">
+    <a href="/" class="title_bar">Asia Food in Berlin</a><text id="version" style="color: chartreuse;"></text> </div>
+
+  </body>
+
+  <script src="return_version_date.js"></script>
+  <script src="data_manage.js"></script>
+  <script src="database_manage.js"></script>
+</html>
+
+
+

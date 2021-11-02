@@ -9,19 +9,15 @@ $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 mysqli_query($conn , "set names utf8");
 
 $id = uniqid();
-$name = $_GET['n'];
-$lat = $_GET['lat'];
-$lng = $_GET['lng'];
-$type = $_GET['type'];
-$review = $_GET['r'];
-$review_details = $_GET['rd'];
-$updated_date = date('Y-m-d H:i:s');
+$web_version = $_GET['wv'];
+$data_version = $_GET['dv'];
+
 //echo $name;
  
-$sql = "INSERT INTO locations ".
-        "(id, name, lat, lng, type, review, review_details, updated_date) ".
+$sql = "INSERT INTO versions ".
+        "(id, web_version, data_version) ".
         "VALUES ".
-        "('$id','$name','$lat','$lng','$type','$review','$review_details','$updated_date')";
+        "('$id','$web_version','$data_version')";
  
  
  
