@@ -5,6 +5,12 @@ $dbpass = '0';          // mysql用户名密码
 $dbname = 'my_db';          // mysql用户名密码
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
+// 检测连接
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+echo "连接成功<br>";
+
 // 设置编码，防止中文乱码
 mysqli_query($conn , "set names utf8");
 
@@ -17,17 +23,15 @@ $review = $_GET['r'];
 $review_details = $_GET['rd'];
 $updated_date = date('Y-m-d H:i:s');
 
-
 $sql = "UPDATE locations SET name='$name',lat='$lat',lng='$lng',type='$type',review='$review',review_details='$review_details',updated_date='$updated_date' WHERE id='$id'";
 
- 
 mysqli_select_db( $conn, $dbname );
 $retval = mysqli_query( $conn, $sql );
 if(! $retval )
 {
   die('无法更新数据: ' . mysqli_error($conn));
 }else{
-    echo "数据更新成功\n";
+  echo "数据更新成功<br>";
 }
 mysqli_close($conn);
 ?>
